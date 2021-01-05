@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta title="Balon Patlatma Oyunu">
+    <meta name="description" content="Bilgisayar Grafiğine Giriş Projesi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="main.css">
+	
+</head>
+
+<script>
+
+	
+</script>
+
+<body onload="init()">
+	<div id="content">
+		<p><b>Mouse Action:</b>
+			<label><input type="radio" name="action" id="mouseRotate">Rotate</label>
+			<label><input type="radio" name="action" id="mouseDrag">Drag</label>
+			<label><input type="radio" name="action" id="mouseAdd">Add</label>
+			<label><input type="radio" name="action" id="mouseDelete">Delete</label>
+		</p>
+
+		<p><b>Difficulty:</b>
+			<label><input type="radio" name="action" id="level1">Easy</label>
+			<label><input type="radio" name="action" id="level2">Normal</label>
+			<label><input type="radio" name="action" id="level3">Hard</label>
+			<label><input type="radio" name="action" id="level4">Harder</label>
+			<label><input type="radio" name="action" id="level5">Hardest</label>
+		</p>
+
+		<h1>"POINTS: " <span id="myText"></span></h1>
+
+
+		<div id="canvas-holder">
+			<canvas id="maincanvas" width="1000" height="500"></canvas>
+		</div>
+	</div>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js'></script><script  src="./script.js"></script>
+
+  <script type="text/javascript" src="index.js"></script>
+</body>
+
+</html>
