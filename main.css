@@ -1,0 +1,45 @@
+body{
+    background-color:#0c0c0d;
+    margin: 0; padding: 0;
+    width: 100%;
+    -webkit-user-select: none;
+	/* turning off text selection  / Webkit */
+	-moz-user-select: none;
+	/* Firefox */
+	-ms-user-select: none;
+	/* IE 10  */
+	-o-user-select: none;
+	/* Opera */
+	user-select: none;
+    
+}
+
+.canvas-container{
+    width: 100%;
+    margin:auto;
+    
+}
+
+#content  {
+	margin-left: 70px;
+	margin-top: 5px;
+    margin-bottom: 8pt;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #f1f1f1;
+    font-size: 25px;
+}
+
+#canvas-holder {
+	float: left;
+	margin-right: 10px;
+	background-color: white;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+}
+
+#grand {
+  position: absolute;
+}

@@ -11,12 +11,7 @@ window.requestAnimationFrame =
 };
 
 function setUpMouseHander(element, mouseDownFunc, mouseDragFunc, mouseUpFunc) {
-	/*
-           element -- either the element itself or a string with the id of the element
-           mouseDownFunc(x,y,evt) -- should return a boolean to indicate whether to start a drag operation
-           mouseDragFunc(x,y,evt,prevX,prevY,startX,startY)
-           mouseUpFunc(x,y,evt,prevX,prevY,startX,startY)
-       */
+
 	if (!element || !mouseDownFunc || !(typeof mouseDownFunc == "function")) {
 		throw "Illegal arguments in setUpMouseHander";
 	}
@@ -76,13 +71,7 @@ function setUpMouseHander(element, mouseDownFunc, mouseDragFunc, mouseUpFunc) {
 }
 
 function setUpTouchHander(element, touchStartFunc, touchMoveFunc, touchEndFunc, touchCancelFunc) {
-	/*
-           element -- either the element itself or a string with the id of the element
-           touchStartFunc(x,y,evt) -- should return a boolean to indicate whether to start a drag operation
-           touchMoveFunc(x,y,evt,prevX,prevY,startX,startY)
-           touchEndFunc(evt,prevX,prevY,startX,startY)
-           touchCancelFunc()   // no parameters
-       */
+
 	if (!element || !touchStartFunc || !(typeof touchStartFunc == "function")) {
 		throw "Illegal arguments in setUpTouchHander";
 	}

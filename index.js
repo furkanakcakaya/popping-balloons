@@ -4,30 +4,21 @@ var balloons = []
 var shadows = [];
 var delta = 0;
 var totalPoints = 0;
-	//FAILED TO POP = -5
-	//POPPED 		= +15
 
-	var raycaster;  // A THREE.Raycaster for user mouse input.
 
-	var ground; // A square base on which the Cones stand.
-	var Cone;  // A Cone that will be cloned to make the visible Cones.
+	var raycaster;  
 
-	var world;  // An Object3D that contains all the mesh objects in the scene.
-	// Rotation of the scene is done by rotating the world about its
-	// y-axis.  (I couldn't rotate the camera about the scene since
-	// the Raycaster wouldn't work with a camera that was a child
-	// of a rotated object.)
+	var ground; 
+	var Cone;  
 
-	var ROTATE = 1, DRAG = 2, ADD = 3, DELETE = 4;  // Possible mouse actions
-	var mouseAction;  // currently selected mouse action
-	var dragItem;  // the Cone that is being dragged, during a drag operation
-	var intersects; //the objects intersected
+	var world;  
+
+	var ROTATE = 1, DRAG = 2, ADD = 3, DELETE = 4; 
+	var mouseAction;  
+	var dragItem;  
+	var intersects; 
 	
-	var targetForDragging;  // An invisible object that is used as the target for raycasting while
-	// dragging a Cone.  I use it to find the new location of the
-	// Cone.  I tried using the ground for this purpose, but to get
-	// the motion right, I needed a target that is at the same height
-	// above the ground as the point where the user clicked the Cone.
+	var targetForDragging;  
 
 	function render() {  
 		requestAnimationFrame(render);
@@ -55,7 +46,7 @@ var totalPoints = 0;
 				
 			}
 
-			if( Math.abs(balloons[i].position.z - Cone.position.z)<1 && Math.abs(balloons[i].position.x - Cone.position.x)<1 && Math.abs(balloons[i].position.y - Cone.position.y)<1 ){
+			if( Math.abs(balloons[i].position.z - Cone.position.z)<1 && Math.abs(balloons[i].position.x - Cone.position.x)<1 && Math.abs(balloons[i].position.y - Cone.position.y)<3 ){
 							
 				balloons[i].geometry.dispose();
 				balloons[i].material.dispose();
@@ -79,23 +70,23 @@ var totalPoints = 0;
 
 	function createWorld() {
 		scene = new THREE.Scene();
-		renderer.setClearColor(0x333333);
+		renderer.setClearColor(0x0c0c0d);
 		camera = new THREE.PerspectiveCamera(27,canvas.width/canvas.height,10,100);
 		camera.position.z = 60;
 		camera.position.y = 30;
 		camera.lookAt( new THREE.Vector3(0,0,0) );
-		camera.add(new THREE.PointLight(0xffffff,0.7)); // point light at camera position
+		camera.add(new THREE.PointLight(0xffffff,0.7)); 
 		scene.add(camera);
-		scene.add(new THREE.DirectionalLight(0xffffff,0.5)); // light shining from above.
+		scene.add(new THREE.DirectionalLight(0xffffff,0.5));
 
 		world = new THREE.Object3D();
 		scene.add(world);
 
 		ground = new THREE.Mesh(
 			new THREE.BoxGeometry(40,1,40),
-			new THREE.MeshLambertMaterial( {color:"green"})
+			new THREE.MeshLambertMaterial( {color:"#4b09c3"})
 		);
-		ground.position.y = -0.5;  // top of base lies in the plane y = -5;
+		ground.position.y = -0.5;  
 		world.add(ground);
 
 		targetForDragging = new THREE.Mesh(
@@ -104,15 +95,14 @@ var totalPoints = 0;
 		);
 		targetForDragging.material.visible = false;
 
-		//targetForDragging.material.transparent = true;  // This was used for debugging
-		//targetForDragging.material.opacity = 0.1;
-		//world.add(targetForDragging);
+	
+
 
 		Cone = new THREE.Mesh(
-			new THREE.ConeGeometry(1,1,64),
-			new THREE.MeshLambertMaterial( {color:"yellow"} )
+			new THREE.ConeGeometry(1,3,64),
+			new THREE.MeshLambertMaterial( {color:"#ff0024"} )
 		);
-		Cone.position.y = 0;  // places base at y = 0;
+		Cone.position.y = 0;  
 		Cone.position.x = 0;
 		Cone.position.z = 0;
 		world.add(Cone);
@@ -187,12 +177,12 @@ var totalPoints = 0;
 			return true;
 		}
 		if (targetForDragging.parent == world) {
-			world.remove(targetForDragging);  // I don't want to check for hits on targetForDragging
+			world.remove(targetForDragging); 
 		}
 		var a = 2*x/canvas.width - 1;
 		var b = 1 - 2*y/canvas.height;
 		raycaster.setFromCamera( new THREE.Vector2(a,b), camera );
-		intersects = raycaster.intersectObjects( world.children );  // no need for recusion since all objects are top-level
+		intersects = raycaster.intersectObjects( world.children );  
 		if (intersects.length == 0) {
 			return false;
 		}
@@ -212,10 +202,10 @@ var totalPoints = 0;
 				}
 			case ADD:
 				if (objectHit == ground) {
-					var locationX = item.point.x;  // Gives the point of intersection in world coords
+					var locationX = item.point.x; 
 					var locationZ = item.point.z;
 					var coords = new THREE.Vector3(locationX, 0, locationZ);
-					world.worldToLocal(coords);  // to add cylider in correct position, neew local coords for the world object
+					world.worldToLocal(coords); 
 					addCone(coords.x, coords.z);
 					render();
 				}
@@ -247,7 +237,7 @@ var totalPoints = 0;
 			var locationZ = intersects[0].point.z;
 			var coords = new THREE.Vector3(locationX, 0, locationZ);
 			world.worldToLocal(coords);
-			a = Math.min(19,Math.max(-19,coords.x));  // clamp coords to the range -19 to 19, so object stays on ground
+			a = Math.min(19,Math.max(-19,coords.x));  
 			b = Math.min(19,Math.max(-19,coords.z));
 			dragItem.position.set(a,0,b);
 			render();
@@ -279,12 +269,6 @@ var totalPoints = 0;
 		else if (document.getElementById("mouseDrag").checked) {
 			mouseAction = DRAG;
 		}
-		else if (document.getElementById("mouseAdd").checked) {
-			mouseAction = ADD;
-		}
-		else {
-			mouseAction = DELETE;
-		}
 	}
 
 	function init() {
@@ -304,8 +288,7 @@ var totalPoints = 0;
 		mouseAction = DRAG;
 		document.getElementById("mouseRotate").onchange = doChangeMouseAction;
 		document.getElementById("mouseDrag").onchange = doChangeMouseAction;
-		document.getElementById("mouseAdd").onchange = doChangeMouseAction;
-		document.getElementById("mouseDelete").onchange = doChangeMouseAction;
+
 		createWorld();
 		setUpMouseHander(canvas,doMouseDown,doMouseMove);
 		setUpTouchHander(canvas,doMouseDown,doMouseMove);
